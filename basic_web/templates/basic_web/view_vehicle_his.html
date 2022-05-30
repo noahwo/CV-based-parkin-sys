@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+
+<div class="modal-header">
+  <h3 class="modal-title text-primary">车辆历史信息</h3>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+
+  <div class="">
+    <strong> 车牌:  </strong>
+    {{ car_his.plate }}
+  </div>
+  <div class="">
+    <strong> 价格: </strong>
+    {{ car_his.total_cost }}
+  </div>
+  <div class="">
+    <strong> 进场时间: </strong>
+    {{ car_his.enter_time | date:"Y.n.j" }} {{car_his.enter_time | time:"H:i:s" }}
+  </div>
+  <div class="">
+   <strong> 出场时间: </strong>
+   {{ car_his.exit_time | date:"Y.n.j" }} {{car_his.exit_time | time:"H:i:s" }}
+  </div>
+  <div class="">
+    <strong> 总费用: </strong>
+    {{ car_his.total_cost }}
+  </div>
+  <div class="">
+    <strong> 停留时间(小时): </strong>
+    {{ car_his.time_spent }}
+  </div>
+  <div class="">
+    <strong> 卡号(如果有): </strong>
+    {{ car_card_number.card_number }}
+  </div>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+</div>

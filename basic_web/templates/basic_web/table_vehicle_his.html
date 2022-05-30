@@ -1,0 +1,98 @@
+{% block body %}
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="">历史订单</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    记录信息
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>车牌</th>
+                                <th>入场时间</th>
+                                <th>出场时间</th>
+                                <th>停留(h)</th>
+                                <th>总费用</th>
+                                <th>会员卡</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                        {% if cars_history %}
+                            {% for car_his in cars_history %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td>{{ car_his.plate }}</td>
+                                    <td>{{ car_his.enter_time | date:"Y.n.j" }} {{car_his.enter_time | time:"H:i:s" }}</td>
+                                    <td>{{ car_his.exit_time | date:"Y.n.j" }} {{car_his.exit_time | time:"H:i:s" }}</td>
+                                    <td>{{ car_his.time_spent }}</td>
+                                    <td>{{ car_his.total_cost }}</td>
+                                    {% if car_his.card_number  == "" or car_his.card_number == " "%}
+                                      <td>无</td>
+                                    {% else %}
+                                      <td>{{ car_his.card_number }}</td>
+                                    {% endif %}
+                             
+                                    <td>
+                                        <button type="button" class="bs-modal read-book btn btn-sm btn-primary" data-form-url="{% url 'view_vehicle_his' car_his.pk %}">
+                                          <span class="fa fa-eye"></span>
+                                        </button>
+
+                                        {% comment %} <a class="btn btn-sm btn-success" href="{% url 'pay' customer.pk %}"><span class="fas fa-comments-dollar"></span> Pay</a> {% endcomment %}
+                                        <button type="button" class="update-book btn btn-sm btn-warning" data-form-url="{% url 'update_vehicle_his' car_his.pk %}">
+                                          <span class="fa fa-pencil">编辑</span>
+                                        </button>
+
+                                        <button type="button" class="bs-modal delete-book btn btn-sm btn-danger" data-form-url="{% url 'delete_vehicle_his' car_his.pk %}">
+                                          <span class="fa fa-trash">删除</span>
+                                        </button> 
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                            </tbody>
+                        </table>
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </tbody>
+</table>
+{% endblock %}

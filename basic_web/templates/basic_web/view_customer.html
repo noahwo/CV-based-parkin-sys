@@ -1,0 +1,49 @@
+{% load widget_tweaks %}
+
+<div class="modal-header">
+  <h3 class="modal-title text-primary">会员详情</h3>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div class="">
+   <strong> 姓名: </strong>
+    {{ customer.full_name }}
+  </div>
+  <div class="">
+    <strong> 车牌:  </strong>
+    {{ customer.plate }}
+  </div>
+  <div class="">
+    <strong> 余额: </strong>
+    {{ customer.balance }}
+   </div>
+  <div class="">
+    <strong> 折扣: </strong>
+    {{ customer.discount }}折
+   </div>
+  <div class="">
+    <strong> 注册时间: </strong>
+     {{ customer.reg_date | date:"Y.n.j" }} {{customer.reg_date | time:"H:i:s" }}
+  </div>
+  <div class="">
+    <strong> 卡号: </strong>
+    {{ customer.card_number }}
+  </div>
+  <div class="">
+    <strong> 电话: </strong>
+    {{ customer.phone_number }}
+  </div>
+  <div class="">
+    <strong> 备注: </strong>
+    {{ customer.comment }}
+  </div>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+</div>

@@ -1,0 +1,22 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#0A3331",
+        "titleBar.activeBackground": "#0E4745",
+        "titleBar.activeForeground": "#F1FCFC"
+    },
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "parkin",
+            "database": "parkin",
+            "username": "root",
+            "password": "Good123."
+        }
+    ]
+}

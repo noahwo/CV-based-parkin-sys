@@ -1,0 +1,100 @@
+{% block body %}
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="">会员列表</a>
+                </li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    信息
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>姓名</th>
+                                <th>车牌</th>
+                                <th>余额</th>
+                                <th>折扣</th>
+                                <th>手机</th>
+                                {% comment %} <th>注册时间</th> {% endcomment %}
+                                <th>卡号</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                        {% if customers %}
+                            {% for customer in customers %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td>{{ customer.full_name}} </td>
+                                    <td>{{ customer.plate }}</td>
+                                    <td>{{ customer.balance }}</td>
+                                    {% if customer.discount  == 10 %}
+                                      <td>无折扣</td>
+                                    {% else %}
+                                      <td> {{customer.discount}} 折</td>
+                                    {% endif %}
+                                    <!-- <td>{{ customer.discount }} 折</td> -->
+                                    <td>{{ customer.phone_number }}</td>
+                                    {% comment %} <td>{{ customer.reg_date | date:"Y.n.j" }} {{customer.reg_date | time:"H:i:s" }}</td> {% endcomment %}
+                                    <td>{{ customer.card_number }}</td>
+                
+                                    <td>
+                                        <button type="button" class="bs-modal read-book btn btn-sm btn-primary" data-form-url="{% url 'view_customer' customer.pk %}">
+                                          <span class="fa fa-eye"></span>
+                                        </button>
+                                        <!-- <a class="btn btn-sm btn-success" href="{% url 'pay' customer.pk %}"><span class="fas fa-comments-dollar"></span>支付</a> -->
+                                        <button type="button" class="update-book btn btn-sm btn-warning" data-form-url="{% url 'update_customer' customer.pk %}">
+                                          <span class="fa fa-pencil">编辑</span>
+                                        </button>
+                                        <button type="button" class="bs-modal delete-book btn btn-sm btn-danger" data-form-url="{% url 'delete_customer' customer.pk %}">
+                                          <span class="fa fa-trash">删除</span>
+                                        </button> 
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                            </tbody>
+                        </table>
+                        {% if is_paginated %}
+                          <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                              <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                              <li class="disabled"><span>&laquo;</span></li>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                              {% if page_obj.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                              {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                              {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                              <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                              <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                          </ul>
+                        {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        
+
+  </tbody>
+</table>
+{% endblock %}

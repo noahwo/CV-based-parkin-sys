@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block mainBody %}
+{% load my_tags %}
+<p>This is an index.html that inherits the base.html</p>
+{% comment %} <p>My tag: {{array.0}} {{array.1}} {{array.2}}</p> {% endcomment %}
+<p>{% multi array.0 array.1 array.2 %}</p>
+{% endblock mainBody %}
+    

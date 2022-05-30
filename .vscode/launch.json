@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Django-han",
+            "type": "python",
+            "request": "launch",
+            "program": "python manage.py",
+            "args": [
+                "runserver 0.0.0.0:8000"
+            ],
+            "django": true,
+            "justMyCode": true
+        }
+    ],
+}
